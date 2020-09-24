@@ -17,9 +17,9 @@ namespace Business
             DataProvider = dataProvider;
         }
 
-        public async Task<List<Todo>> GetAll()
+        public async Task<List<Todo>> GetFiltered(Dictionary<string, string> filters)
         {
-            return await DataProvider.Fetch(new Dictionary<string, string>());
+            return await DataProvider.Fetch(filters);
         }
 
         public async Task<List<Todo>> GetById(int id)

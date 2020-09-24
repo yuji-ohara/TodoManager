@@ -1,6 +1,9 @@
 GET https://localhost:44301/todos
 
 ###
+GET https://localhost:44301/todos?title=123
+
+###
 
 GET https://localhost:44301/todos/7
 

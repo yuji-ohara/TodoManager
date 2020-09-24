@@ -23,7 +23,7 @@ namespace TodoManager.Controllers
         public async Task<IActionResult> GetTodos([FromQuery] TodoFilter filters)
         {
             return await AsyncMethods(async () => {
-                var result = await TodoManager.GetAll();
+                var result = await TodoManager.GetFiltered(filters.ToDictionary());
 
                 return Ok(result);
             });

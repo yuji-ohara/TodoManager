@@ -24,7 +24,7 @@ namespace TodoManager.Controllers
         {
             try
             {
-                return await Task.Run(action);
+                return await action();
             }
             catch (ArgumentException argumentException)
             {
