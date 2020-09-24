@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
+using System.Text.Json.Serialization;
 
 namespace TodoManager
 {
@@ -28,7 +29,10 @@ namespace TodoManager
 
             services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
             
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
             services.AddTransient<DAL.IDataProvider<Models.Todo>, DAL.SqlDataAdapter>();
             services.AddTransient<Business.PersonalManager>();
         }

@@ -8,16 +8,17 @@ using Business;
 
 namespace TodoManager.Controllers
 {
-
-    public class TestController : BaseController
+    [Route("[controller]")]
+    [ApiController]
+    public class TestsController : BaseController
     {
-        public TestController(PersonalManager todoManager, IConfiguration configuration, ILogger<TestController> logger) : base(todoManager, configuration, logger)
+        public TestsController(PersonalManager todoManager, IConfiguration configuration, ILogger<TestsController> logger) : base(todoManager, configuration, logger)
         {
         }
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("/")]
+        [Route("")]
         public IActionResult Get()
         {
             var version = Assembly.GetEntryAssembly()?.GetName().Version.ToString();

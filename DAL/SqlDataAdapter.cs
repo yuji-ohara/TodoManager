@@ -58,10 +58,11 @@ namespace DAL
 
             var parameters = new
             {
-                id = filter["id"],
-                parentId = filter["ParentId"],
-                title = filter["Title"],
-                freetext = filter["Description"]
+                id = filter?["id"],
+                parentId = filter?["ParentId"],
+                title = filter?["Title"],
+                freetext = filter?["Description"],
+                done = filter?["Done"]
             };
 
             await using(var connection = new SqlConnection(ConnectionString))

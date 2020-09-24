@@ -7,14 +7,18 @@ using Business;
 
 namespace TodoManager.Controllers
 {
-    public class TodoController : BaseController
+    [Route("[controller]")]
+    [ApiController]
+    public class TodosController : BaseController
     {
         
 
-        public TodoController(PersonalManager todoManager, IConfiguration configuration, ILogger<TodoController> logger) : base(todoManager, configuration, logger)
+        public TodosController(PersonalManager todoManager, IConfiguration configuration, ILogger<TodosController> logger) : base(todoManager, configuration, logger)
         {
         }
 
+        [HttpGet]
+        [Route("")]
         public async Task<IActionResult> GetTodos([FromQuery] TodoFilter filters)
         {
             return await AsyncMethods(async () => {
