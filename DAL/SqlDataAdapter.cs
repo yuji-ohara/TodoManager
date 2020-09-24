@@ -26,7 +26,11 @@ namespace DAL
             {
                 var parameters = new
                 {
-                    id = model.Id
+                    parentId = model.ParentId,
+                    title = model.Title,
+                    extendedDescription = model.ExtendedDescription,
+                    dueDate = model.DueDate,
+                    done = model.Done
                 };
 
                 id = await connection.ExecuteScalarAsync<int>("tm.Create_Todo", parameters, commandType: System.Data.CommandType.StoredProcedure);
@@ -52,17 +56,17 @@ namespace DAL
             return operationSuccess > 0;
         }
 
-        public async Task<List<Todo>> Fetch(Dictionary<string, string> filter = null)
+        public async Task<List<Todo>> Fetch(Dictionary<string, string> filter)
         {
             IEnumerable<Todo> queryResult;
 
             var parameters = new
             {
-                id = filter?["id"],
-                parentId = filter?["ParentId"],
-                title = filter?["Title"],
-                freetext = filter?["Description"],
-                done = filter?["Done"]
+                id = filter.ContainsKey("Id") ? filter["Id"] : null,
+                parentId = filter.ContainsKey("ParentId") ? filter["ParentId"] : null,
+                title = filter.ContainsKey("Title") ? filter["Title"] : null,
+                freetext = filter.ContainsKey("FreeText") ? filter["FreeText"] : null,
+                done = filter.ContainsKey("Done") ? filter["Done"] : null
             };
 
             await using(var connection = new SqlConnection(ConnectionString))
@@ -81,7 +85,12 @@ namespace DAL
             {
                 var parameters = new
                 {
-                    id = model.Id
+                    id = model.Id,
+                    parentId = model.ParentId,
+                    title = model.Title,
+                    extendedDescription = model.ExtendedDescription,
+                    dueDate = model.DueDate,
+                    done = model.Done
                 };
 
                 id = await connection.ExecuteScalarAsync<int>("tm.Update_Todo", parameters, commandType: System.Data.CommandType.StoredProcedure);

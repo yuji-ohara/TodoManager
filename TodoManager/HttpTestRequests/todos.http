@@ -1,1 +1,36 @@
 GET https://localhost:44301/todos
+
+###
+
+GET https://localhost:44301/todos/7
+
+###
+POST https://localhost:44301/todos
+Content-Type: application/json
+
+{
+    "id": null,
+    "parentId": null,
+    "title": "test 123",
+    "extendedDescription": "description test",
+    "dueDate": null,
+    "done": false
+}
+
+###
+
+PUT https://localhost:44301/todos/6
+Content-Type: application/json
+
+{
+    "id": null,
+    "parentId": null,
+    "title": "test 2",
+    "extendedDescription": "description test 2",
+    "dueDate": null,
+    "done": false
+}
+
+###
+
+DELETE https://localhost:44301/todos/11

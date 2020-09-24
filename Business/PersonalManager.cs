@@ -19,7 +19,29 @@ namespace Business
 
         public async Task<List<Todo>> GetAll()
         {
-            return await DataProvider.Fetch();
+            return await DataProvider.Fetch(new Dictionary<string, string>());
+        }
+
+        public async Task<List<Todo>> GetById(int id)
+        {
+            var filter = new Dictionary<string, string>();
+            filter.Add("Id", id.ToString());
+            return await DataProvider.Fetch(filter);
+        }
+
+        public async Task<int> Create(Todo todo)
+        {
+            return await DataProvider.Create(todo);
+        }
+
+        public async Task<bool> Update(Todo todo)
+        {
+            return await DataProvider.Update(todo);
+        }
+
+        public async Task<bool> Delete(int id)
+        {
+            return await DataProvider.Delete(id);
         }
     }
 }
