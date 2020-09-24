@@ -4,34 +4,36 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Business;
 
 namespace TodoManager.Controllers
 {
     public class BaseController : Controller
     {
-        private ILogger _logger;
-        private IConfiguration _configuration;
-
-        public BaseController(IConfiguration configuration, ILogger logger)
+        public ILogger Logger;
+        public IConfiguration Configuration;
+        public readonly PersonalManager TodoManager;
+        public BaseController(PersonalManager todoManager, IConfiguration configuration, ILogger logger)
         {
-            _logger = logger;
-            _configuration = configuration;
+            Logger = logger;
+            Configuration = configuration;
+            TodoManager = todoManager;
         }
 
         protected async Task<IActionResult> AsyncMethods(Func<Task<IActionResult>> action, [CallerMemberName] string controller = "", [CallerFilePath] string method = "")
         {
             try
             {
-                return await action();
+                return await Task.Run(action);
             }
             catch (ArgumentException argumentException)
             {
-                _logger.LogError(argumentException.Message);
+                Logger.LogError($"{controller}.{method}:{argumentException.Message}");
                 return StatusCode(400);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Logger.LogError($"{controller}.{method}:{ex.Message}");
                 return StatusCode(500);
             }
         }
