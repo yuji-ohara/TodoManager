@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Business\Business.csproj" />
+    <ProjectReference Include="..\Migrations\Migrations.csproj" />
   </ItemGroup>
 
 

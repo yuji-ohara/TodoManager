@@ -2,9 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using TodoManager.Model.Request;
 using Business;
 using Models;
+using Models.Request;
 
 namespace TodoManager.Controllers
 {

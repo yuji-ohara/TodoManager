@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Migrations;
 using Serilog;
 using System;
 using System.Text.Json.Serialization;
@@ -33,11 +34,12 @@ namespace TodoManager
             {
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
+
+            services.AddTransient<SqlMigrator>();
             services.AddTransient<DAL.IDataProvider<Models.Todo>, DAL.SqlDataAdapter>();
             services.AddTransient<Business.PersonalManager>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -55,6 +57,10 @@ namespace TodoManager
             {
                 endpoints.MapControllers();
             });
+
+            var serviceProvider = app.ApplicationServices;
+            var sqlMigrator = serviceProvider.GetService<SqlMigrator>();
+            sqlMigrator.Migrate();
         }
     }
 }

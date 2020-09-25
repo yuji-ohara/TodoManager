@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TodoManager.Model.Request
+namespace Models.Request
 {
     public class TodoFilter
     {
